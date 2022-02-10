@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { dbService } from "fbase";
+import { v4 as uuidv4 } from "uuid";
+import { dbService, strorageService } from "fbase";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { ref, uploadString } from "firebase/storage";
+
 import Nweet from "components/Nweet";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
@@ -19,17 +22,21 @@ const Home = ({ userObj }) => {
 
   const onSubmit = async event => {
     event.preventDefault();
-    try {
-      const docRef = await addDoc(collection(dbService, "nweets"), {
-        text: nweet,
-        createdAt: Date.now(),
-        creatorId: userObj.uid,
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
-    setNweet("");
+
+    const fileRef = ref(strorageService, `${userObj.uid}/${uuidv4()}`);
+    const response = await uploadString(fileRef, attachment, "data_url");
+    console.log(response);
+    // try {
+    //   const docRef = await addDoc(collection(dbService, "nweets"), {
+    //     text: nweet,
+    //     createdAt: Date.now(),
+    //     creatorId: userObj.uid,
+    //   });
+    //   console.log("Document written with ID: ", docRef.id);
+    // } catch (error) {
+    //   console.error("Error adding document: ", error);
+    // }
+    // setNweet("");
   };
   const onChange = event => {
     const {
