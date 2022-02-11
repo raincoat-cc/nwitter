@@ -8,7 +8,11 @@ const Navigation = ({ userObj }) => {
         <Link to="/home">Home</Link>
       </li>
       <li>
-        <Link to="/profile">{userObj.displayName} 의 profile</Link>
+        {userObj && (
+          <Link to="/profile">
+            {userObj.displayName ? userObj.displayName : "유저"} 의 프로필
+          </Link>
+        )}
       </li>
     </ul>
   );
