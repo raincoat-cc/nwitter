@@ -15,4 +15,4 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 export const authService = getAuth();
 export const dbService = getFirestore();
-export const strorageService = getStorage();
+export const storageService = getStorage();

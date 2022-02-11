@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { dbService, strorageService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
@@ -24,7 +24,7 @@ const Home = ({ userObj }) => {
     event.preventDefault();
     let attachmentUrl = "";
     if (attachment !== "") {
-      const attachmentRef = ref(strorageService, `${userObj.uid}/${uuidv4()}`);
+      const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
       const response = await uploadString(
         attachmentRef,
         attachment,
