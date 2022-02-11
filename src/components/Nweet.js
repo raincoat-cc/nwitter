@@ -11,8 +11,10 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const ok = window.confirm("Are you sure you want to delete this nweet?");
     if (ok) {
       //delete
-      deleteDoc(doc(dbService, `nweets/${nweetObj.id}`));
-      await deleteObject(ref(storageService, nweetObj.attachmentUrl));
+
+      await deleteDoc(doc(dbService, `nweets/${nweetObj.id}`));
+      nweetObj.attachmentUrl &&
+        (await deleteObject(ref(storageService, nweetObj.attachmentUrl)));
     }
   };
 
